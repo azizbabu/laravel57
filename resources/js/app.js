@@ -7,16 +7,27 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import NoteApp from './components/NoteApp.vue';
+import routes from './routes';
+import notesStore from './store/notesStore';
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.use(VueRouter);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+const router = new VueRouter({
+    routes
+});
 
-const app = new Vue({
-    el: '#app'
+window.events = new Vue();
+
+window.flash = function(message, type = 'success') {
+    window.events.$emit('flash', message, type);
+};
+
+new Vue({
+    el: '#app',
+    render: h => h(NoteApp),
+    router,
+    store: notesStore,
 });

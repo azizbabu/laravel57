@@ -4,6 +4,6 @@
 
 ## About Laravel57
 
-Laravel57 is a testing web application built on laravel 5.7.
+Laravel57 is a testing and helping project built on laravel 5.7.
 
 
