@@ -20,6 +20,17 @@ Auth::routes(['verify' => true]);
 Route::middleware(['verified', 'auth'])->group(function() {
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::any('/profile', 'ProfileController@index')->name('profile');
+
+	// Chashier Routes
+	Route::get('charge', 'ChargeController@index');
+	Route::post('charge', 'ChargeController@store');
+
+	// Stripe Routes
+	Route::get('stripe', 'StripePaymentController@stripe');
+	Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
+
+	// Ajax pagination route
+	Route::get('ajax-pagination', 'AjaxController@ajaxPagination');
 });
 
 Route::prefix('api')->group(function() {
@@ -28,9 +39,5 @@ Route::prefix('api')->group(function() {
     Route::put('/notes/{note}/toggleFavourite', 'NotesController@toggleFavourite');
 });
 
-Route::get('charge', 'ChargeController@index');
-Route::post('charge', 'ChargeController@store');
 
-Route::get('stripe', 'StripePaymentController@stripe');
-Route::post('stripe', 'StripePaymentController@stripePost')->name('stripe.post');
 
